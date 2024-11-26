@@ -1,13 +1,17 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "5.2",
+	"EngineAssociation": "{77FEC5AF-4623-8971-A853-0B9B95AB8F35}",
 	"Category": "",
 	"Description": "",
 	"Modules": [
 		{
 			"Name": "ProjectSurvive",
 			"Type": "Runtime",
-			"LoadingPhase": "Default"
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"UMG",
+				"CoreUObject"
+			]
 		}
 	],
 	"Plugins": [

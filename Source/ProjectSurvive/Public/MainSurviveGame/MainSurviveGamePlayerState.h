@@ -51,31 +51,31 @@ public:
 	// ========== Getter ============
 
 	UFUNCTION(BlueprintCallable, Category = "Character|Value")
-	FCharacterStat GetCharacterBaseStat() { return CharacterBaseStat; }
+	FORCEINLINE FCharacterStat GetCharacterBaseStat() const { return CharacterBaseStat; }
 
 	UFUNCTION(BlueprintCallable, Category = "Character|Value")
-	FCharacterStat GetCurrentCharacterStat() { return CurrentCharacterStat; }
+	FORCEINLINE FCharacterStat GetCurrentCharacterStat() const { return CurrentCharacterStat; }
 
 	UFUNCTION(BlueprintCallable, Category = "Character|Value")
-	FCharacterState GetCharacterMaxState() { return CharacterMaxState; }
+	FORCEINLINE FCharacterState GetCharacterMaxState() const { return CharacterMaxState; }
 
 	UFUNCTION(BlueprintCallable, Category = "Character|Value")
-	FCharacterState GetCurrentCharacterState() { return CurrentCharacterState; }
+	FORCEINLINE FCharacterState GetCurrentCharacterState() const { return CurrentCharacterState; }
 
 	// ==============================
 	// ========== Setter ============
 
 	UFUNCTION(BlueprintCallable, Category = "Character|Value")
-	void SetCharacterBaseStat(FCharacterStat InCharacterBaseStat) { CharacterBaseStat = InCharacterBaseStat; }
+	FORCEINLINE void SetCharacterBaseStat(const FCharacterStat InCharacterBaseStat) { CharacterBaseStat = InCharacterBaseStat; }
 
 	UFUNCTION(BlueprintCallable, Category = "Character|Value")
-	void SetCurrentCharacterStat(FCharacterStat InCurrentCharacterBaseStat) { CurrentCharacterStat = InCurrentCharacterBaseStat; }
+	FORCEINLINE void SetCurrentCharacterStat(const FCharacterStat InCurrentCharacterBaseStat) { CurrentCharacterStat = InCurrentCharacterBaseStat; }
 
 	UFUNCTION(BlueprintCallable, Category = "Character|Value")
-	void SetCharacterMaxState(FCharacterState InCharacterMaxState) { CharacterMaxState = InCharacterMaxState; }
+	FORCEINLINE void SetCharacterMaxState(const FCharacterState InCharacterMaxState) { CharacterMaxState = InCharacterMaxState; }
 
 	UFUNCTION(BlueprintCallable, Category = "Character|Value")
-	void SetCurrentCharacterState(FCharacterState InCurrentCharacterState) { CurrentCharacterState = InCurrentCharacterState; }
+	FORCEINLINE void SetCurrentCharacterState(const FCharacterState InCurrentCharacterState) { CurrentCharacterState = InCurrentCharacterState; }
 
 protected:
 

@@ -16,4 +16,8 @@ class PROJECTSURVIVE_API AMainSurviveGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 	
+public:
+
+	AMainSurviveGameMode();
+	
 };

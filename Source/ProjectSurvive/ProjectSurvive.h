@@ -11,10 +11,10 @@ DECLARE_LOG_CATEGORY_EXTERN(Project_S, Log, All);
 #define PS_CALLINFO (FString(__FUNCTION__) + TEXT("(") + FString::FromInt(__LINE__) + TEXT(")"))
 
 // 간단한 로그 출력
-#define PS_SIMPLE(Verbosity) UE_LOG(K_YG, Verbosity, TEXT("%s"), *PS_CALLINFO)
+#define PS_SIMPLE(Verbosity) UE_LOG(LogProjectSurvive, Verbosity, TEXT("%s"), *PS_CALLINFO)
 
 // 텍스트 형식을 추가한 로그 출력
-#define PS_UELOG(Verbosity, Format, ...) UE_LOG(K_YG, Verbosity, TEXT("%s %s"), *PS_CALLINFO, *FString::Printf(Format, ##__VA_ARGS__))
+#define PS_UELOG(Verbosity, Format, ...) UE_LOG(LogProjectSurvive, Verbosity, TEXT("%s %s"), *PS_CALLINFO, *FString::Printf(Format, ##__VA_ARGS__))
 
 // Assertion : 확인
 #define PS_CHECK(Expr, ...) {if(!(Expr)) { PS_UELOG(Error, TEXT("Assertion : %s"), TEXT("'"#Expr"'")); return __VA_ARGS__; }}

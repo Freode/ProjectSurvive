@@ -6,18 +6,18 @@
 
 #include "../../../ProjectSurvive.h"
 #include "Components/ActorComponent.h"
-#include "CharacterStateActorComponent.generated.h"
+#include "CharacterStatComponent.generated.h"
 
-class UPersonalStateWidget;
+class UPersonalStatWidget;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class PROJECTSURVIVE_API UCharacterStateActorComponent : public UActorComponent
+class PROJECTSURVIVE_API UCharacterStatComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
 public:	
 	// Sets default values for this component's properties
-	UCharacterStateActorComponent();
+	UCharacterStatComponent();
 
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
@@ -25,12 +25,12 @@ public:
 	// Setter
 
 	UFUNCTION(BlueprintCallable, Category = "UI")
-	FORCEINLINE void SetPersonalStateWidget(class UPersonalStateWidget* InStateWidget){ StateWidget = InStateWidget; }
+	FORCEINLINE void SetPersonalStatWidget(class UPersonalStatWidget* InStatWidget) { StatWidget = InStatWidget; }
 
 	// Getter
 
 	UFUNCTION(BlueprintCallable, Category = "UI")
-	FORCEINLINE UPersonalStateWidget* GetPersonalStateWidget() const { return StateWidget; }
+	FORCEINLINE UPersonalStatWidget* GetPersonalStatWidget() const { return StatWidget; }
 
 protected:
 	// Called when the game starts
@@ -38,8 +38,9 @@ protected:
 
 private:
 
-	// State UI class
+	// Stat UI class
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI", Meta = (AllowPrivateAccess = true))
-	class UPersonalStateWidget* StateWidget;
-	
+	class UPersonalStatWidget* StatWidget;
+
+		
 };

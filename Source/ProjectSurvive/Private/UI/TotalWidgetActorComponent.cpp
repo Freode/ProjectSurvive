@@ -4,6 +4,9 @@
 
 
 #include "UI/TotalWidgetActorComponent.h"
+#include "UI/State/CharacterStatComponent.h"
+#include "UI/State/CharacterStateActorComponent.h"
+#include "UI/TotalWidget.h"
 
 // Sets default values for this component's properties
 UTotalWidgetActorComponent::UTotalWidgetActorComponent()
@@ -13,6 +16,20 @@ UTotalWidgetActorComponent::UTotalWidgetActorComponent()
 	PrimaryComponentTick.bCanEverTick = true;
 
 	// ...
+
+
+	// Connect widget class
+	ConstructorHelpers::FClassFinder<UTotalWidget> TOTALWIDGET(TEXT("/Game/ProjectS/UI/WG_Total.WG_Total_C"));
+
+	if (TOTALWIDGET.Succeeded())
+	{
+		TotalUIclass = TOTALWIDGET.Class;
+	}
+
+	// Construct child ui components
+	StatComponent = CreateDefaultSubobject<UCharacterStatComponent>(TEXT("StatComponent"));
+	StateComponent = CreateDefaultSubobject<UCharacterStateActorComponent>(TEXT("StateComponent"));
+
 }
 
 
@@ -22,6 +39,18 @@ void UTotalWidgetActorComponent::BeginPlay()
 	Super::BeginPlay();
 
 	// ...
+
+	// Add to viewport the total ui class
+	TotalUI = CreateWidget<UTotalWidget>(GetWorld(), TotalUIclass);
+
+	if (TotalUI)
+	{
+		TotalUI->AddToViewport();
+	}
+
+	// Connect child ui class
+	StateComponent->SetPersonalStateWidget(TotalUI->GetPersonalState());
+	StatComponent->SetPersonalStatWidget(TotalUI->GetPersonalStat());
 	
 }
 

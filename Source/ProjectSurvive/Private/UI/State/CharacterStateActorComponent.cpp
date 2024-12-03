@@ -3,6 +3,8 @@
 // Email : jeonghoe22@gmail.com
 
 #include "UI/State/CharacterStateActorComponent.h"
+#include "Components/WidgetComponent.h"
+#include "UI/State/PersonalStateWidget.h"
 
 // Sets default values for this component's properties
 UCharacterStateActorComponent::UCharacterStateActorComponent()
@@ -12,6 +14,9 @@ UCharacterStateActorComponent::UCharacterStateActorComponent()
 	PrimaryComponentTick.bCanEverTick = true;
 
 	// ...
+
+	// Create state widget component
+
 }
 
 

@@ -9,6 +9,9 @@
 #include "Data/PerosnalCharacterData.h"
 #include "MainSurviveGamePlayerState.generated.h"
 
+// Declare delegate
+DECLARE_MULTICAST_DELEGATE_OneParam(FOnFloatMulticastDelegate, float);
+
 /**
  * 
  */
@@ -24,9 +27,13 @@ public:
 	// ==============================
 	// ====== RPC - To Server =======
 
-	// To Server - Change HP amount
+	// To Server - Change Current HP amount
 	UFUNCTION(Server, Reliable)
-	void ServerChangedHP(const float InAmountHP);
+	void ServerChangedCurrentHP(const float InCurrentHP);
+
+	// To Server - Change Max HP amount
+	UFUNCTION(Server, Reliable)
+	void ServerChangedMaxHP(const float InMaxHP);
 
 	// To Server - Change exp amount
 	UFUNCTION(Server, Reliable)
@@ -37,7 +44,11 @@ public:
 
 	// Multicast - Change HP amount
 	UFUNCTION(NetMulticast, Reliable)
-	void MulticastChangedHP(const float InAmountHP);
+	void MulticastChangedCurrentHP(const float InCurrentHP);
+
+	// Multicast - Change HP amount
+	UFUNCTION(NetMulticast, Reliable)
+	void MulticastChangedMaxHP(const float InMaxHP);
 
 	// Multicast - Change exp amount
 	UFUNCTION(NetMulticast, Reliable)
@@ -77,13 +88,24 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Character|Value")
 	FORCEINLINE void SetCurrentCharacterState(const FCharacterState InCurrentCharacterState) { CurrentCharacterState = InCurrentCharacterState; }
 
+	// ==============================
+	// ========= Delegate ===========
+
+	FOnFloatMulticastDelegate OnChangeCurrentHP;
+	FOnFloatMulticastDelegate OnChangeMaxHP;
+	FOnFloatMulticastDelegate OnChangeMP;
+	FOnFloatMulticastDelegate OnChangeExp;
+
 protected:
 
 	// ==============================
 	// ====== RPC - To Server =======
 
-	// To Server - Execute to change hp amount
-	void ServerChangedHP_Implementation(const float InAmountHP);
+	// To Server - Execute to change current hp amount
+	void ServerChangedCurrentHP_Implementation(const float InCurrentHP);
+
+	// To Server - Execute to change max hp amount
+	void ServerChangedMaxHP_Implementation(const float InMaxHP);
 
 	// To Server - Execute to change exp amount
 	void ServerChangedExp_Implementation(const float InAmountExp);
@@ -91,8 +113,11 @@ protected:
 	// ==============================
 	// ====== RPC - Multicast =======
 
-	// Multicast - Execute to change HP amount
-	void MulticastChangedHP_Implementation(const float InAmountHP);
+	// Multicast - Execute to change current HP amount
+	void MulticastChangedCurrentHP_Implementation(const float InCurrentHP);
+
+	// Multicast - Execute to change max HP amount
+	void MulticastChangedMaxHP_Implementation(const float InMaxHP);
 
 	// Multicast - Execute to change exp amount
 	void MulticastChangedExp_Implementation(const float InAmountExp);

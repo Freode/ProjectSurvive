@@ -35,6 +35,14 @@ public:
 	UFUNCTION(Server, Reliable)
 	void ServerChangedMaxHP(const float InMaxHP);
 
+	// To Server - Change Current MP amount
+	UFUNCTION(Server, Reliable)
+	void ServerChangedCurrentMP(const float InCurrentMP);
+
+	// To Server - Change Max MP amount
+	UFUNCTION(Server, Reliable)
+	void ServerChangedMaxMP(const float InMaxMP);
+
 	// To Server - Change exp amount
 	UFUNCTION(Server, Reliable)
 	void ServerChangedExp(const float InAmountExp);
@@ -42,21 +50,25 @@ public:
 	// ==============================
 	// ====== RPC - Multicast =======
 
-	// Multicast - Change HP amount
+	// Multicast - Change current HP amount
 	UFUNCTION(NetMulticast, Reliable)
 	void MulticastChangedCurrentHP(const float InCurrentHP);
 
-	// Multicast - Change HP amount
+	// Multicast - Change max MP amount
 	UFUNCTION(NetMulticast, Reliable)
 	void MulticastChangedMaxHP(const float InMaxHP);
+
+	// Multicast - Change current MP amount
+	UFUNCTION(NetMulticast, Reliable)
+	void MulticastChangedCurrentMP(const float InCurrentMP);
+
+	// Multicast - Change max MP amount
+	UFUNCTION(NetMulticast, Reliable)
+	void MulticastChangedMaxMP(const float InMaxMP);
 
 	// Multicast - Change exp amount
 	UFUNCTION(NetMulticast, Reliable)
 	void MulticastChangedExp(const float InAmountExp);
-
-	// Multicast - Change level
-	UFUNCTION(NetMulticast, Reliable)
-	void MulticastChangedLevel(const float InNewLevel);
 
 	// ==============================
 	// ========== Getter ============
@@ -93,8 +105,10 @@ public:
 
 	FOnFloatMulticastDelegate OnChangeCurrentHP;
 	FOnFloatMulticastDelegate OnChangeMaxHP;
-	FOnFloatMulticastDelegate OnChangeMP;
+	FOnFloatMulticastDelegate OnChangeCurrentMP;
+	FOnFloatMulticastDelegate OnChangeMaxMP;
 	FOnFloatMulticastDelegate OnChangeExp;
+	FOnFloatMulticastDelegate OnChangeMaxExp;
 
 protected:
 
@@ -106,6 +120,12 @@ protected:
 
 	// To Server - Execute to change max hp amount
 	void ServerChangedMaxHP_Implementation(const float InMaxHP);
+
+	// To Server - Execute to change current mp amount
+	void ServerChangedCurrentMP_Implementation(const float InCurrentMP);
+
+	// To Server - Execute to change max mp amount
+	void ServerChangedMaxMP_Implementation(const float InMaxMP);
 
 	// To Server - Execute to change exp amount
 	void ServerChangedExp_Implementation(const float InAmountExp);
@@ -119,13 +139,25 @@ protected:
 	// Multicast - Execute to change max HP amount
 	void MulticastChangedMaxHP_Implementation(const float InMaxHP);
 
+	// Multicast - Execute to change current MP amount
+	void MulticastChangedCurrentMP_Implementation(const float InCurrentMP);
+
+	// Multicast - Execute to change max MP amount
+	void MulticastChangedMaxMP_Implementation(const float InMaxMP);
+
 	// Multicast - Execute to change exp amount
 	void MulticastChangedExp_Implementation(const float InAmountExp);
 
-	// Multicast - Execute to change level
-	void MulticastChangedLevel_Implementation(const float InNewLevel);
-
 private:
+
+	// Get personal state information by specific level
+	FCharacterState* GetCharacterStateByLevel(int32 InLevel);
+
+	// Get personal stat information by specific level
+	FCharacterStat* GetCharacterStatByLevel(int32 InLevel);
+
+	// Level Up
+	void LevelUp(int32 InLevel);
 
 	// Current character's base stat
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Character|Value", Meta = (AllowPrivateAccess = true))
@@ -143,4 +175,11 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Character|Value", Meta = (AllowPrivateAccess = true))
 	FCharacterState CurrentCharacterState;
 	
+	// State table
+	UPROPERTY()
+	class UDataTable* PersonalStateTable;
+
+	// Stat Table
+	UPROPERTY()
+	class UDataTable* PersonalStatTable;
 };

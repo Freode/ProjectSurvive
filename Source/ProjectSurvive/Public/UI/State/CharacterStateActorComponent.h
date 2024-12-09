@@ -22,6 +22,10 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	// Set binding functions
+	UFUNCTION(BlueprintCallable, Category = "UI")
+	void SetBindingFunctions();
+
 	// Setter
 
 	UFUNCTION(BlueprintCallable, Category = "UI")
@@ -31,6 +35,10 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "UI")
 	FORCEINLINE UPersonalStateWidget* GetPersonalStateWidget() const { return StateWidget; }
+
+	// Owner character
+	UPROPERTY()
+	ACharacter* OwnerCharacter;
 
 protected:
 	// Called when the game starts

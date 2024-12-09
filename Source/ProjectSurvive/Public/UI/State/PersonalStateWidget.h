@@ -6,6 +6,7 @@
 
 #include "../../../ProjectSurvive.h"
 #include "Blueprint/UserWidget.h"
+#include "../../Data/PerosnalCharacterData.h"
 #include "PersonalStateWidget.generated.h"
 
 /**
@@ -21,6 +22,34 @@ public:
 	// Initialization
 	UFUNCTION(BlueprintCallable, Category = "UI")
 	void Initialization();
+
+	// Level up
+	UFUNCTION(BlueprintCallable, Category = "UI")
+	void LevelUp(float InNewLevel);
+
+	// Update current hp
+	UFUNCTION(BlueprintCallable, Category = "UI")
+	void UpdateCurrentHP(float InNewHP);
+
+	// Update max hp
+	UFUNCTION(BlueprintCallable, Category = "UI")
+	void UpdateMaxHP(float InNewHP);
+
+	// Update current mp
+	UFUNCTION(BlueprintCallable, Category = "UI")
+	void UpdateCurrentMP(float InNewMP);
+
+	// Update max mp
+	UFUNCTION(BlueprintCallable, Category = "UI")
+	void UpdateMaxMP(float InNewMP);
+
+	// Update current exp
+	UFUNCTION(BlueprintCallable, Category = "UI")
+	void UpdateExp(float InNewExp);
+
+	// Update max exp
+	UFUNCTION(BlueprintCallable, Category = "UI")
+	void UpdateMaxExp(float InNewExp);
 	
 protected:
 
@@ -43,4 +72,9 @@ protected:
 	UPROPERTY(meta = (BindWidget))
 	class UPersonalStateBar* WG_Exp;
 	
+private:
+
+	// Personal state table which has information about each level 
+	UPROPERTY()
+	class UDataTable* PersonalStateTable;
 };

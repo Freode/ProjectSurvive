@@ -5,6 +5,7 @@
 #include "UI/State/CharacterStateActorComponent.h"
 #include "Components/WidgetComponent.h"
 #include "UI/State/PersonalStateWidget.h"
+#include "MainSurviveGame/MainSurviveGamePlayerState.h"
 
 // Sets default values for this component's properties
 UCharacterStateActorComponent::UCharacterStateActorComponent()
@@ -26,7 +27,6 @@ void UCharacterStateActorComponent::BeginPlay()
 	Super::BeginPlay();
 
 	// ...
-	
 }
 
 
@@ -36,5 +36,35 @@ void UCharacterStateActorComponent::TickComponent(float DeltaTime, ELevelTick Ti
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
+}
+
+// Set binding functions
+void UCharacterStateActorComponent::SetBindingFunctions()
+{
+	// Get owner character
+	OwnerCharacter = Cast<ACharacter>(GetOwner());
+	if (OwnerCharacter == nullptr)
+	{
+		return;
+	}
+
+	// Binding functions on player state when character is locally controlled
+	if (OwnerCharacter->IsLocallyControlled())
+	{
+		AMainSurviveGamePlayerState* PlayerState = OwnerCharacter->GetPlayerState<AMainSurviveGamePlayerState>();
+
+		if (!PlayerState)
+		{
+			return;
+		}
+
+		// Set binding functions
+		PlayerState->OnChangeCurrentHP.AddUObject(StateWidget, &UPersonalStateWidget::UpdateCurrentHP);
+		PlayerState->OnChangeMaxHP.AddUObject(StateWidget, &UPersonalStateWidget::UpdateMaxHP);
+		PlayerState->OnChangeCurrentMP.AddUObject(StateWidget, &UPersonalStateWidget::UpdateCurrentMP);
+		PlayerState->OnChangeMaxMP.AddUObject(StateWidget, &UPersonalStateWidget::UpdateMaxMP);
+		PlayerState->OnChangeExp.AddUObject(StateWidget, &UPersonalStateWidget::UpdateExp);
+		PlayerState->OnChangeMaxExp.AddUObject(StateWidget, &UPersonalStateWidget::UpdateMaxExp);
+	}
 }
 
